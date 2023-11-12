@@ -4,7 +4,7 @@ public class Main {
     static double length_x = 50;
     static double length_xf = length_x*0.5;
     static double a = 1;
-    static double t_max = 50;
+    static double t_max = 70;
     static double t_int = t_max*0.5;
     static double Ca = 20;
     static double Cb = 20;

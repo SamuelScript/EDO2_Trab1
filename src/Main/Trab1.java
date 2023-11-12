@@ -2,6 +2,8 @@ package Main;
 
 import java.awt.*;
 import java.io.IOException;
+import static java.lang.Math.sin;
+import static java.lang.Math.exp;
 
 public class Trab1 {
     private final double length_x; //Lx : entre 1 e 20 [metros]
@@ -18,6 +20,7 @@ public class Trab1 {
     private double t_draw;
     private double dt_draw;
     private GChart chart;
+    private GChart chartA;
 
     private double Algoritmo_Trabalho_1( int Xi ) {
         return Qs[Xi] + a*(deltaT/deltaX)*((Qs[Xi+1] - 2*Qs[Xi] + Qs[Xi-1])/deltaX);
@@ -38,6 +41,7 @@ public class Trab1 {
         dt_draw = t_max / draw; //Intervalo para desenhar no gráfico
         t_draw  = dt_draw;
         chart = new GChart("A barra de calor!!!", draw + 1);
+        chartA = new GChart("Calor Analitico", draw + 1);
 
         Qs = new double[s_partition+1];
 
@@ -58,6 +62,8 @@ public class Trab1 {
 
         for(int i = 0; i < length; i++) chart.addData(0, i * deltaX, Qs[i]);
         chart.setLabel(0, "T = 0.0");
+        for(int i = 0; i < length; i++) chartA.addData(0, i * deltaX, Qs[i]);
+        chartA.setLabel(0, "T = 0.0");
         c++;
 
         Qss[0] = 0; //Precisamos inicializar o contorno em nosso array auxiliar também.
@@ -105,8 +111,26 @@ public class Trab1 {
         for(int i = 1; i <= c ; i++){
             for(int j = 1; j <= c ; j++) chart.setVisible(j, false);
             chart.setVisible(i, true);
-            try{ chart.savePNG("/home/samuel/ProjetosProg/export/"+"A barra de calor!!!"+" "+i+".png", 900, 600); }
+            try{ chart.savePNG("/home/gabrielm/Development/export/"+"A barra de calor!!!"+" "+i+".png", 900, 600); }
             catch(IOException e) { e.printStackTrace(); }
         }
+
+        chartA.setLabel(c, "T = " + t);
+
+        for(double x = 0; x < length_x; x+=deltaX) { //Computa a curva final da solução analítica.
+            double acc = 0.0;
+            int n = 1;
+            while(true){
+                double v = exp(-n*n*Math.PI*Math.PI*a*a*t/(length_x*length_x)) * sin((n*Math.PI*x)/length_x)/n;
+                if(v < 0.0000001) break;
+                acc += v;
+                n += 2;
+                if(n > 10000) break; //Condição anti-travamento.
+            }
+            acc *= 4*Ca/Math.PI;
+            chartA.addData(1, x, acc);
+        }
+        try{ chartA.savePNG("/home/gabrielm/Development/export/"+"Calor Analitico"+".png", 900, 600); }
+        catch(IOException e) { e.printStackTrace(); }
     }
 }
