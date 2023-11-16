@@ -13,7 +13,7 @@ public class Main {
     static final int draw = 1;
 
     public static void main(String[] args) {
-        Trab1 trab = new Trab1(length_x, length_xf, a, t_max, t_int, Ca, Cb, Cc, s_partition, draw);
-        trab.run();
+        //Trab1 trab = new Trab1(length_x, length_xf, a, t_max, t_int, Ca, Cb, Cc, s_partition, draw);
+        //trab.run();
     }
 }
