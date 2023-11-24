@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ui.MainFrame">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="1532" height="794"/>
+    </constraints>
+    <properties>
+      <background color="-3152901"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="376e4" binding="panelCards" layout-manager="CardLayout" hgap="0" vgap="0">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="20" left="20" bottom="10" right="20" weightx="1.0" weighty="1.0"/>
+        </constraints>
+        <properties>
+          <background color="-12763068"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="265b1" binding="panelProps" layout-manager="GridBagLayout">
+            <constraints>
+              <card name="Card1"/>
+            </constraints>
+            <properties>
+              <background color="-986896"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="b4bff" binding="panelMethods" layout-manager="GridBagLayout">
+            <constraints>
+              <card name="Card2"/>
+            </constraints>
+            <properties>
+              <background color="-986896"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <scrollpane id="9a3c3" binding="scrollPaneMethods">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="1.0" weighty="1.0"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="6c8e5" class="javax.swing.JTable" binding="tableMethods">
+                    <constraints/>
+                    <properties>
+                      <fillsViewportHeight value="false"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="8b138" binding="panelButtons" layout-manager="GridBagLayout">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="20" bottom="20" right="20" weightx="1.0" weighty="0.0" ipady="50"/>
+        </constraints>
+        <properties>
+          <background color="-986896"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="f5788" class="javax.swing.JButton" binding="anteriorButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="50" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Anterior"/>
+            </properties>
+          </component>
+          <component id="acad2" class="javax.swing.JButton" binding="proximoButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="0" right="50" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Proximo"/>
+            </properties>
+          </component>
+          <hspacer id="1fd7b">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="50" bottom="0" right="50" weightx="2.0" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
