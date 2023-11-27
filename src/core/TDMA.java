@@ -28,7 +28,7 @@ public class TDMA extends NumericMethod {
     }
 
     @Override
-    void step(double t) {
+    public void step(double t) {
         for (int i = 1; i < nodes - 1; i++) {
             Tss[i] = hesse*beta*(Ts[i - 1] - 2*Ts[i] + Ts[i + 1]) + Ts[i]; //Coloquei hesse*beta em evidência para acelerar um pouco matemática de FPU
             Pj[i] = bj/(aj - cj*Pj[i - 1]);

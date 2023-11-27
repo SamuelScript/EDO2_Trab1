@@ -10,8 +10,8 @@ abstract class NumericMethod {
     protected final double tcd; // Temperatura no contorno direito
     protected final int nodes;
     protected double deltaT; //Intervalo da malha temporal. Não é final pois cada método tem sua condição de estabilidade.
-    protected double[] Ts;
-    protected double[] Tss;
+    protected double[] Ts; //Array de temperatura efetivo.
+    protected double[] Tss; //Array temporário de temperaturas para operações out-of-place.
 
     public NumericMethod(NumericData data) {
         this.length_x = data.length_x;
@@ -33,8 +33,19 @@ abstract class NumericMethod {
         Tss[0] = tce;
         Tss[nodes - 1] = tcd;
     }
-    abstract void step(double t);
-    public void run() {
-        for(double t = deltaT; t <= time_max; t += deltaT) step(t);
+    abstract public void step(double t);
+    public double[] getTs() {
+        return Ts;
     }
+
+    public double getDeltaT() {
+        return deltaT;
+    }
+
+    /*public void run() {
+        for(double t = deltaT; t <= time_max; t += deltaT) {
+            step(t);
+
+        }
+    }*/
 }

@@ -8,7 +8,7 @@ public class ExactSolution extends NumericMethod{
         super(data);
     }
     @Override
-    void step(double t) {
+    public void step(double t) {
         int i = 1;
         for(double x = deltaX; x < length_x; x+=deltaX, i++) { //Computa a curva final da solução analítica.
             double acc = 0.0;

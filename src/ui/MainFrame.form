@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ui.MainFrame">
   <grid id="27dc6" binding="contentPane" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="1532" height="794"/>
+      <xy x="20" y="20" width="903" height="601"/>
     </constraints>
     <properties>
       <background color="-3152901"/>
@@ -31,7 +31,7 @@
               <component id="90a9" class="javax.swing.JLabel" binding="lblXLength">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag top="20" left="20" bottom="10" right="5" weightx="0.0" weighty="0.0"/>
+                  <gridbag top="0" left="20" bottom="10" right="5" weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
                   <foreground color="-16777216"/>
@@ -43,10 +43,11 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
-                  <gridbag top="20" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0" ipadx="150"/>
+                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0" ipadx="100"/>
                 </constraints>
                 <properties>
                   <background color="-1"/>
+                  <horizontalAlignment value="0"/>
                 </properties>
               </component>
               <hspacer id="11c41">
@@ -75,6 +76,7 @@
                 </constraints>
                 <properties>
                   <background color="-1"/>
+                  <horizontalAlignment value="0"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -98,6 +100,7 @@
                 </constraints>
                 <properties>
                   <background color="-1"/>
+                  <horizontalAlignment value="0"/>
                 </properties>
               </component>
               <component id="f50bb" class="javax.swing.JLabel" binding="lblCLeft">
@@ -115,10 +118,11 @@
                   <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
-                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0" ipadx="150"/>
+                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
                   <background color="-1"/>
+                  <horizontalAlignment value="0"/>
                 </properties>
               </component>
               <component id="4fa85" class="javax.swing.JLabel" binding="lblCRight">
@@ -131,15 +135,16 @@
                   <text value="Temperatura em x = L, t:"/>
                 </properties>
               </component>
-              <component id="fa11e" class="javax.swing.JTextField" binding="textFieldTRight">
+              <component id="fa11e" class="javax.swing.JTextField" binding="textFieldCRight">
                 <constraints>
                   <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
-                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0" ipadx="150"/>
+                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
                   <background color="-1"/>
+                  <horizontalAlignment value="0"/>
                 </properties>
               </component>
               <component id="d3c40" class="javax.swing.JLabel" binding="lblTIni">
@@ -157,16 +162,17 @@
                   <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
-                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0" ipadx="150"/>
+                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
                   <background color="-1"/>
+                  <horizontalAlignment value="0"/>
                 </properties>
               </component>
               <component id="e880a" class="javax.swing.JLabel" binding="lblUnitLenghtX">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag top="20" left="5" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+                  <gridbag top="0" left="5" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
                   <foreground color="-16777216"/>
@@ -196,14 +202,84 @@
                   <text value="Segundos"/>
                 </properties>
               </component>
-              <component id="7e146" class="javax.swing.JComboBox" binding="comboBoxUnitTemp1">
+              <component id="c288e" class="javax.swing.JLabel" binding="lblSimType">
                 <constraints>
-                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                  <gridbag top="0" left="5" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="0" bottom="10" right="5" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <text value="Estilo de Simuação:"/>
+                </properties>
+              </component>
+              <component id="b5625" class="javax.swing.JComboBox" binding="comboBoxSimType">
+                <constraints>
+                  <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
                   <background color="-1"/>
-                  <editable value="false"/>
+                  <foreground color="-16777216"/>
+                  <model>
+                    <item value="Animar"/>
+                    <item value="Computar"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="1c5b6" class="javax.swing.JComboBox" binding="comboBoxDeltaX">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="20" bottom="10" right="5" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <foreground color="-16777216"/>
+                  <model>
+                    <item value="Delta X:"/>
+                    <item value="Número de Partições:"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="57997" class="javax.swing.JTextField" binding="textFieldDeltaX">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <horizontalAlignment value="0"/>
+                </properties>
+              </component>
+              <component id="ca493" class="javax.swing.JLabel" binding="lblUnitDeltaX">
+                <constraints>
+                  <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="5" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="2"/>
+                  <text value="Metros"/>
+                </properties>
+              </component>
+              <component id="1abaa" class="javax.swing.JLabel" binding="lblTempUnit">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="0" bottom="10" right="5" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <text value="Unidade de Temperatura:"/>
+                </properties>
+              </component>
+              <component id="83d55" class="javax.swing.JComboBox" binding="comboBoxTempUnit">
+                <constraints>
+                  <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
                   <foreground color="-16777216"/>
                   <model>
                     <item value="Kelvin"/>
@@ -212,34 +288,37 @@
                   </model>
                 </properties>
               </component>
-              <component id="22b6f" class="javax.swing.JComboBox" binding="comboBoxUnitTemp2">
+              <component id="8f726" class="javax.swing.JLabel" binding="lblTempUnit1">
                 <constraints>
-                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag top="0" left="5" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
                   <foreground color="-16777216"/>
-                  <model>
-                    <item value="Kelvin"/>
-                    <item value="Celsius"/>
-                    <item value="Fahrenheit"/>
-                  </model>
+                  <horizontalAlignment value="2"/>
+                  <text value="Kelvin"/>
                 </properties>
               </component>
-              <component id="86fcc" class="javax.swing.JComboBox" binding="comboBoxUnitTemp3">
+              <component id="98c35" class="javax.swing.JLabel" binding="lblTempUnit2">
                 <constraints>
-                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag top="0" left="5" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <background color="-1"/>
                   <foreground color="-16777216"/>
-                  <model>
-                    <item value="Kelvin"/>
-                    <item value="Celsius"/>
-                    <item value="Fahrenheit"/>
-                  </model>
+                  <horizontalAlignment value="2"/>
+                  <text value="Kelvin"/>
+                </properties>
+              </component>
+              <component id="129b0" class="javax.swing.JLabel" binding="lblTempUnit3">
+                <constraints>
+                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="5" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="2"/>
+                  <text value="Kelvin"/>
                 </properties>
               </component>
             </children>
@@ -256,7 +335,7 @@
               <scrollpane id="9a3c3" binding="scrollPaneMethods">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                  <gridbag top="20" left="20" bottom="20" right="10" weightx="0.0" weighty="1.0" ipadx="250"/>
+                  <gridbag top="20" left="20" bottom="20" right="10" weightx="0.0" weighty="1.0" ipadx="320"/>
                 </constraints>
                 <properties>
                   <background color="-1"/>
@@ -284,6 +363,57 @@
                 <children/>
               </scrollpane>
             </children>
+          </grid>
+          <grid id="6a0b7" binding="panelVisualizer" layout-manager="GridBagLayout">
+            <constraints>
+              <card name="Card3"/>
+            </constraints>
+            <properties>
+              <background color="-986896"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <scrollpane id="8f26e" binding="scrollPaneVisualizer">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag top="20" left="20" bottom="20" right="10" weightx="0.0" weighty="1.0" ipadx="320"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="a8afd" class="javax.swing.JTable" binding="tableVisualizer">
+                    <constraints/>
+                    <properties>
+                      <enabled value="true"/>
+                      <fillsViewportHeight value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <scrollpane id="4e67f" binding="scrollPaneVisualizerInfo">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag top="20" left="10" bottom="20" right="20" weightx="1.0" weighty="1.0"/>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </scrollpane>
+            </children>
+          </grid>
+          <grid id="38fcf" binding="panelSimStatus" layout-manager="GridBagLayout">
+            <constraints>
+              <card name="Card4"/>
+            </constraints>
+            <properties>
+              <background color="-986896"/>
+            </properties>
+            <border type="none"/>
+            <children/>
           </grid>
         </children>
       </grid>
