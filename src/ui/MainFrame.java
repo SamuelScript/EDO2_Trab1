@@ -2,6 +2,7 @@ package ui;
 
 import core.MethodFactory.METHODS;
 import core.NumericData;
+import core.SimulationPanel;
 import core.VisualizerFactory.VISUALIZERS;
 
 import javax.swing.*;
@@ -46,15 +47,17 @@ public class MainFrame extends JFrame {
     private JTable tableVisualizer;
     private JLabel lblSimType;
     private JPanel panelSimStatus;
-    private JComboBox comboBoxDeltaX;
+    private JComboBox<String> comboBoxDeltaX;
     private JTextField textFieldDeltaX;
     private JLabel lblUnitDeltaX;
-    private JComboBox comboBoxSimType;
+    private JComboBox<String> comboBoxSimType;
     private JLabel lblTempUnit;
-    private JComboBox comboBoxTempUnit;
+    private JComboBox<String> comboBoxTempUnit;
     private JLabel lblTempUnit1;
     private JLabel lblTempUnit2;
     private JLabel lblTempUnit3;
+    private JScrollPane scrollPaneSimLIst;
+    private JPanel panelSimList;
     private int currentCard = 1;
     private NumericData data;
     private int simu_mode;
@@ -72,6 +75,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         ((JLabel)comboBoxDeltaX.getRenderer()).setHorizontalAlignment(JLabel.RIGHT);
+        panelSimList.setLayout(new GridLayout(0, 1, 0, 10));
 
         // PAGINA 2 (SELECAO DOS METODOS) !------!
         Object[][] methods = new Object[METHODS.values().length][2];
@@ -121,9 +125,15 @@ public class MainFrame extends JFrame {
         ListSelectionModel VisualizerSelectionModel = tableVisualizer.getSelectionModel();
 
         //LISTENERS
-        comboBoxDeltaX.addActionListener (new ActionListener () {
+        Timer timer = new Timer(50, new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                if(comboBoxDeltaX.getSelectedIndex() == 0) lblUnitDeltaX.setText("Metros");
+                for(SimulationPanel simulation : simulations) simulation.tick();
+            }
+        });
+        comboBoxDeltaX.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (comboBoxDeltaX.getSelectedIndex() == 0) lblUnitDeltaX.setText("Metros");
                 else lblUnitDeltaX.setText("Partições");
             }
         });
@@ -151,6 +161,7 @@ public class MainFrame extends JFrame {
                 }
             }
         });
+
         proximoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,6 +225,19 @@ public class MainFrame extends JFrame {
                         currentCard++;
                         ((CardLayout) panelCards.getLayout()).next(panelCards);
                         proximoButton.setEnabled(false);
+
+                        int methodCount = 0;
+                        int visualizerCount = 0;
+                        METHODS[] methods = new METHODS[METHODS.values().length]; //Candidato a refatoração
+                        VISUALIZERS[] visualizers = new VISUALIZERS[VISUALIZERS.values().length];
+                        for(int i = 0; i < selected_methods.length; i++) if(selected_methods[i]) methods[methodCount++] = METHODS.values()[i];
+                        for(int i = 0; i < selected_visualizers.length; i++) if(selected_visualizers[i]) visualizers[visualizerCount++] = VISUALIZERS.values()[i];
+                        simulations = new SimulationPanel[methodCount];
+                        for(int i = 0; i < methodCount; i++) {
+                            simulations[i] = new SimulationPanel(data, methods[i], visualizers, new double[1], new double[1]);
+                            panelSimList.add(simulations[i]);
+                        }
+                        timer.start();
                         break;
                 }
             }

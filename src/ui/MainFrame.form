@@ -413,7 +413,24 @@
               <background color="-986896"/>
             </properties>
             <border type="none"/>
-            <children/>
+            <children>
+              <scrollpane id="82a10" binding="scrollPaneSimLIst">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag top="20" left="20" bottom="20" right="20" weightx="1.0" weighty="1.0"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="30af5" binding="panelSimList" layout-manager="GridBagLayout">
+                    <constraints/>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
+              </scrollpane>
+            </children>
           </grid>
         </children>
       </grid>
