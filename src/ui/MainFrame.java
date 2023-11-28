@@ -67,6 +67,10 @@ public class MainFrame extends JFrame {
     private final String[] textNames = new String[] { "Comprimento do Domínio" , "Condutividade Térmica", "Tempo de Simulação", "Temperatura no Contorno Esquerdo", "Temperatura no Contorno Direito", "Temperatura inicial da barra", "Delta X/Numero de partições"};
     private boolean[] selected_methods = new boolean[METHODS.values().length];
     private boolean[] selected_visualizers = new boolean[VISUALIZERS.values().length];
+    private SimulationPanel[] simulations;
+
+    private int simulations_running = 0;
+
     public MainFrame() {
         super("Metal Pipe DELUXE");
         setContentPane(contentPane);
@@ -150,14 +154,43 @@ public class MainFrame extends JFrame {
                 lblStatus.setText(String.valueOf(tableMethods.getSelectedRow()));
             }
         });
+
+        VisualizerSelectionModel.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                lblStatus.setText(String.valueOf(tableVisualizer.getSelectedRow()));
+            }
+        });
+
+
+        // BUTTONS
         anteriorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(currentCard > 1) {
-                    ((CardLayout) panelCards.getLayout()).previous(panelCards);
-                    currentCard--;
-                    anteriorButton.setEnabled(currentCard != 1);
-                    proximoButton.setEnabled(true);
+                switch(currentCard) {
+                    case 2:
+                        ((CardLayout) panelCards.getLayout()).previous(panelCards);
+                        currentCard--;
+                        anteriorButton.setEnabled(false);
+                        break;
+                    case 3:
+                        ((CardLayout) panelCards.getLayout()).previous(panelCards);
+                        currentCard--;
+                        break;
+                    case 4:
+                        if(simulations_running > -1) {
+                            int result = JOptionPane.showConfirmDialog(null, "Um ou mais simulações estão rodando.\n" +
+                                    "Para voltar ao menu anterior, é necessário abortá-las.\n" +
+                                    "Deseja abortar todas as simulações em andamento?", "Pergunta Rápida", JOptionPane.YES_NO_OPTION);
+                            if(result == JOptionPane.NO_OPTION) return;
+                        }
+                        ((CardLayout) panelCards.getLayout()).previous(panelCards);
+                        currentCard--;
+                        proximoButton.setEnabled(true);
+
+                        for(SimulationPanel simulation : simulations) panelSimList.remove(simulation);
+                        timer.stop();
+                        simulations = null;
+                        break;
                 }
             }
         });

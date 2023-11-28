@@ -1,8 +1,19 @@
 package core;
 
 public class MethodFactory {
-    enum METHODS{ EXACT, UTCS, TDMA_IMPLICIT, TDMA_EXPLICIT, TDMA_CRANK_NICOLSON, TDMA_CUSTOM }
-    private static NumericMethod createMethod(NumericData data, double[] extraData, METHODS method) {
+    public enum METHODS{
+        EXACT("Solução Analítica"),
+        UTCS("Upwind no Tempo e Centrada no Espaço"),
+        TDMA_IMPLICIT("Método de Thomas Implícito"),
+        TDMA_EXPLICIT("Método de Thomas Explícito"),
+        TDMA_CRANK_NICOLSON("Método de Crank e Nicolson"),
+        TDMA_CUSTOM("Método de Thomas com Beta e Hesse");
+        public String method_name;
+        METHODS(String method_name) {
+            this.method_name = method_name;
+        }
+    }
+    public static NumericMethod createMethod(NumericData data, double[] extraData, METHODS method) {
         switch(method) {
             case EXACT:
                 return new ExactSolution(data);
