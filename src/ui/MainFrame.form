@@ -48,6 +48,7 @@
                 <properties>
                   <background color="-1"/>
                   <horizontalAlignment value="0"/>
+                  <preferredSize width="50" height="20"/>
                 </properties>
               </component>
               <hspacer id="11c41">
@@ -77,6 +78,7 @@
                 <properties>
                   <background color="-1"/>
                   <horizontalAlignment value="0"/>
+                  <preferredSize width="50" height="20"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -101,6 +103,7 @@
                 <properties>
                   <background color="-1"/>
                   <horizontalAlignment value="0"/>
+                  <preferredSize width="50" height="20"/>
                 </properties>
               </component>
               <component id="f50bb" class="javax.swing.JLabel" binding="lblCLeft">
@@ -123,6 +126,7 @@
                 <properties>
                   <background color="-1"/>
                   <horizontalAlignment value="0"/>
+                  <preferredSize width="50" height="20"/>
                 </properties>
               </component>
               <component id="4fa85" class="javax.swing.JLabel" binding="lblCRight">
@@ -145,6 +149,7 @@
                 <properties>
                   <background color="-1"/>
                   <horizontalAlignment value="0"/>
+                  <preferredSize width="50" height="20"/>
                 </properties>
               </component>
               <component id="d3c40" class="javax.swing.JLabel" binding="lblTIni">
@@ -167,6 +172,7 @@
                 <properties>
                   <background color="-1"/>
                   <horizontalAlignment value="0"/>
+                  <preferredSize width="50" height="20"/>
                 </properties>
               </component>
               <component id="e880a" class="javax.swing.JLabel" binding="lblUnitLenghtX">
@@ -250,6 +256,7 @@
                 <properties>
                   <background color="-1"/>
                   <horizontalAlignment value="0"/>
+                  <preferredSize width="50" height="20"/>
                 </properties>
               </component>
               <component id="ca493" class="javax.swing.JLabel" binding="lblUnitDeltaX">
@@ -351,17 +358,15 @@
                   </component>
                 </children>
               </scrollpane>
-              <scrollpane id="351f1" binding="scrollPaneMethodInfo">
+              <grid id="9e2b6" binding="panelMethodInfo" layout-manager="CardLayout" hgap="0" vgap="0">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag top="20" left="10" bottom="20" right="20" weightx="1.0" weighty="1.0"/>
                 </constraints>
-                <properties>
-                  <background color="-1"/>
-                </properties>
+                <properties/>
                 <border type="none"/>
                 <children/>
-              </scrollpane>
+              </grid>
             </children>
           </grid>
           <grid id="6a0b7" binding="panelVisualizer" layout-manager="GridBagLayout">
@@ -392,17 +397,15 @@
                   </component>
                 </children>
               </scrollpane>
-              <scrollpane id="4e67f" binding="scrollPaneVisualizerInfo">
+              <grid id="46060" binding="panelVisualizerInfo" layout-manager="CardLayout" hgap="0" vgap="0">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                  <gridbag top="20" left="10" bottom="20" right="20" weightx="1.0" weighty="1.0"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag top="20" left="10" bottom="20" right="20" weightx="1.0" weighty="0.0"/>
                 </constraints>
-                <properties>
-                  <background color="-1"/>
-                </properties>
+                <properties/>
                 <border type="none"/>
                 <children/>
-              </scrollpane>
+              </grid>
             </children>
           </grid>
           <grid id="38fcf" binding="panelSimStatus" layout-manager="GridBagLayout">
@@ -416,7 +419,7 @@
             <children>
               <scrollpane id="82a10" binding="scrollPaneSimLIst">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag top="20" left="20" bottom="20" right="20" weightx="1.0" weighty="1.0"/>
                 </constraints>
                 <properties/>
@@ -430,6 +433,26 @@
                   </grid>
                 </children>
               </scrollpane>
+              <component id="3f10b" class="javax.swing.JButton" binding="buttonGlobalPlayPause">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="20" bottom="20" right="50" weightx="1.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <preferredSize width="150" height="30"/>
+                  <text value="Play / Pause Global"/>
+                </properties>
+              </component>
+              <component id="9cf5e" class="javax.swing.JButton" binding="buttonGlobalStop">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="50" bottom="20" right="20" weightx="1.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <preferredSize width="150" height="30"/>
+                  <text value="Parar Global"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

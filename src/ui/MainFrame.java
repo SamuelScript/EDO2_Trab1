@@ -1,8 +1,10 @@
 package ui;
 
+import core.MethodExtraDataPanel;
 import core.MethodFactory.METHODS;
 import core.NumericData;
 import core.SimulationPanel;
+import core.VisualizerExtraDataPanel;
 import core.VisualizerFactory.VISUALIZERS;
 
 import javax.swing.*;
@@ -13,51 +15,18 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainFrame extends JFrame {
-    private JPanel contentPane;
-    private JPanel panelCards;
-    private JPanel panelButtons;
-    private JButton anteriorButton;
-    private JButton proximoButton;
-    private JPanel panelProps;
-    private JPanel panelMethods;
-    private JScrollPane scrollPaneMethods;
-    private JTable tableMethods;
-    private JPanel panelHeader;
-    private JLabel lblXLength;
-    private JTextField textFieldLengthX;
-    private JTextField textFieldAlpha;
-    private JLabel lblAlpha;
-    private JLabel lblTMax;
-    private JTextField textFieldTMax;
-    private JLabel lblCLeft;
-    private JTextField textFieldCLeft;
-    private JLabel lblCRight;
-    private JTextField textFieldCRight;
-    private JLabel lblTIni;
-    private JTextField textFieldTIni;
-    private JLabel lblUnitLenghtX;
-    private JLabel lblUnitAlpha;
-    private JLabel lblStatus;
-    private JScrollPane scrollPaneMethodInfo;
-    private JPanel panelVisualizer;
-    private JScrollPane scrollPaneVisualizer;
-    private JScrollPane scrollPaneVisualizerInfo;
-    private JTable tableVisualizer;
-    private JLabel lblSimType;
-    private JPanel panelSimStatus;
-    private JComboBox<String> comboBoxDeltaX;
-    private JTextField textFieldDeltaX;
-    private JLabel lblUnitDeltaX;
-    private JComboBox<String> comboBoxSimType;
-    private JLabel lblTempUnit;
-    private JComboBox<String> comboBoxTempUnit;
-    private JLabel lblTempUnit1;
-    private JLabel lblTempUnit2;
-    private JLabel lblTempUnit3;
-    private JScrollPane scrollPaneSimLIst;
-    private JPanel panelSimList;
+    private JPanel contentPane, panelCards, panelButtons, panelProps, panelMethods, panelHeader, panelSimStatus, panelSimList, panelMethodInfo, panelVisualizerInfo, panelVisualizer;
+    private JButton anteriorButton, proximoButton, buttonGlobalPlayPause, buttonGlobalStop;
+    private JLabel lblXLength, lblAlpha, lblTMax, lblCLeft, lblCRight, lblTIni, lblUnitLenghtX, lblUnitAlpha, lblStatus, lblSimType, lblUnitDeltaX, lblTempUnit, lblTempUnit1, lblTempUnit2, lblTempUnit3;
+    private JScrollPane scrollPaneMethods,scrollPaneVisualizer,scrollPaneSimLIst;
+    private JTable tableMethods,tableVisualizer;
+    private JTextField textFieldLengthX, textFieldAlpha, textFieldTMax, textFieldCLeft, textFieldCRight, textFieldTIni, textFieldDeltaX;
+    private final JTextField[] textFields = new JTextField[] { textFieldLengthX, textFieldAlpha, textFieldTMax, textFieldCLeft, textFieldCRight, textFieldTIni, textFieldDeltaX};
+    private JComboBox<String> comboBoxDeltaX,comboBoxSimType,comboBoxTempUnit;
     private int currentCard = 1;
     private NumericData data;
     private int simu_mode;
@@ -65,16 +34,21 @@ public class MainFrame extends JFrame {
     private int temperature_type;
     private JTextField[] textFields = new JTextField[] { textFieldLengthX, textFieldAlpha, textFieldTMax, textFieldCLeft, textFieldCRight, textFieldTIni, textFieldDeltaX};
     private final String[] textNames = new String[] { "Comprimento do Domínio" , "Condutividade Térmica", "Tempo de Simulação", "Temperatura no Contorno Esquerdo", "Temperatura no Contorno Direito", "Temperatura inicial da barra", "Delta X/Numero de partições"};
-    private boolean[] selected_methods = new boolean[METHODS.values().length];
-    private boolean[] selected_visualizers = new boolean[VISUALIZERS.values().length];
+    private final boolean[] selected_methods = new boolean[METHODS.values().length];
+    private final boolean[] selected_visualizers = new boolean[VISUALIZERS.values().length];
     private SimulationPanel[] simulations;
-
+    private final MethodExtraDataPanel[] extraDataPanels;
+    private final VisualizerExtraDataPanel[] extraViewPanels;
+    private final double[][] extraDataMethods = new double[METHODS.values().length][];
+    private final double[][] extraDataVisualizers = new double[VISUALIZERS.values().length][];
     private int simulations_running = 0;
+    private ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     public MainFrame() {
         super("Metal Pipe DELUXE");
         setContentPane(contentPane);
         setMinimumSize(new Dimension(900, 600));
+        setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -104,8 +78,13 @@ public class MainFrame extends JFrame {
 
         ListSelectionModel methodSelectionModel = tableMethods.getSelectionModel();
 
-        // PAGINA 3 (VISUALIZADORES) !------!
+        extraDataPanels = new MethodExtraDataPanel[METHODS.values().length];
+        for(int i = 0; i < extraDataPanels.length; i++) {
+            extraDataPanels[i] = new MethodExtraDataPanel(METHODS.values()[i]);
+            panelMethodInfo.add(extraDataPanels[i], String.valueOf(i));
+        }
 
+        // PAGINA 3 (VISUALIZADORES) !------!
         Object[][] visualizers = new Object[VISUALIZERS.values().length][2];
         for(int i = 0; i < visualizers.length; i++) visualizers[i] = new Object[] { VISUALIZERS.values()[i].visualizer_name, false };
 
@@ -127,6 +106,12 @@ public class MainFrame extends JFrame {
         tableVisualizer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         ListSelectionModel VisualizerSelectionModel = tableVisualizer.getSelectionModel();
+
+        extraViewPanels = new VisualizerExtraDataPanel[VISUALIZERS.values().length];
+        for(int i = 0; i < extraViewPanels.length; i++) {
+            extraViewPanels[i] = new VisualizerExtraDataPanel();
+            panelVisualizerInfo.add(extraViewPanels[i], String.valueOf(i));
+        }
 
         //LISTENERS
         Timer timer = new Timer(50, new ActionListener() {
@@ -151,13 +136,13 @@ public class MainFrame extends JFrame {
         });
         methodSelectionModel.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                lblStatus.setText(String.valueOf(tableMethods.getSelectedRow()));
+                ((CardLayout)panelMethodInfo.getLayout()).show(panelMethodInfo, String.valueOf(tableMethods.getSelectedRow()));
             }
         });
 
         VisualizerSelectionModel.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                lblStatus.setText(String.valueOf(tableVisualizer.getSelectedRow()));
+                ((CardLayout)panelVisualizerInfo.getLayout()).show(panelVisualizerInfo, String.valueOf(tableVisualizer.getSelectedRow()));
             }
         });
 
@@ -177,21 +162,27 @@ public class MainFrame extends JFrame {
                         currentCard--;
                         break;
                     case 4:
-                        if(simulations_running > -1) {
+                        simulations_running = 0;
+                        for(SimulationPanel sim : simulations) if(sim.isRunning()) simulations_running++;
+                        if(simulations_running > 0) {
                             int result = JOptionPane.showConfirmDialog(null, "Um ou mais simulações estão rodando.\n" +
                                     "Para voltar ao menu anterior, é necessário abortá-las.\n" +
                                     "Deseja abortar todas as simulações em andamento?", "Pergunta Rápida", JOptionPane.YES_NO_OPTION);
-                            if(result == JOptionPane.NO_OPTION) return;
+                            if(result == JOptionPane.CANCEL_OPTION || result == JOptionPane.NO_OPTION) return;
                         }
                         ((CardLayout) panelCards.getLayout()).previous(panelCards);
                         currentCard--;
                         proximoButton.setEnabled(true);
 
-                        for(SimulationPanel simulation : simulations) panelSimList.remove(simulation);
+                        for(SimulationPanel simulation : simulations) {
+                            simulation.doStopClick();
+                            panelSimList.remove(simulation);
+                        }
                         timer.stop();
                         simulations = null;
                         break;
                 }
+                lblStatus.setText("");
             }
         });
 
@@ -266,13 +257,36 @@ public class MainFrame extends JFrame {
                         for(int i = 0; i < selected_methods.length; i++) if(selected_methods[i]) methods[methodCount++] = METHODS.values()[i];
                         for(int i = 0; i < selected_visualizers.length; i++) if(selected_visualizers[i]) visualizers[visualizerCount++] = VISUALIZERS.values()[i];
                         simulations = new SimulationPanel[methodCount];
+                        GridBagConstraints constraints = new GridBagConstraints();
+                        constraints.gridx = 0;
+                        constraints.weightx = 1;
+                        constraints.weighty = 0;
+                        constraints.ipady = 10;
+                        int panelLength = scrollPaneSimLIst.getSize().width;
                         for(int i = 0; i < methodCount; i++) {
-                            simulations[i] = new SimulationPanel(data, methods[i], visualizers, new double[1], new double[1]);
-                            panelSimList.add(simulations[i]);
+                            constraints.gridy = i;
+                            simulations[i] = new SimulationPanel(simu_mode,threadPool,data, methods[i], visualizers, extraDataMethods[i], extraDataVisualizers);
+                            simulations[i].setPreferredSize(new Dimension(panelLength-15,40));
+                            panelSimList.add(simulations[i], constraints);
                         }
                         timer.start();
                         break;
                 }
+                lblStatus.setText("");
+            }
+        });
+
+        buttonGlobalPlayPause.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(SimulationPanel sim : simulations) sim.doPlaypauseClick();
+            }
+        });
+
+        buttonGlobalStop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(SimulationPanel sim : simulations) sim.doStopClick();
             }
         });
     }
