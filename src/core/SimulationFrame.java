@@ -18,12 +18,8 @@ class SimulationFrame extends JFrame {
             contentPane.add(visualizers[i].getView());
             contentPane.setTitleAt(i, visualizer[i].visualizer_name);
         }
-
-        /*assert simulation != null;
-        double deltaT = simulation.getDeltaT();
-        for(double t = deltaT; t < data.time_max; t += deltaT) {
-            simulation.step(t);
-            for(int j = 0; j < visualizers.length; j++) visualizers[j].draw(simulation.getTs(), t);
-        }*/
+    }
+    void draw_all(double[] Ts,double t) {
+        for(Visualizer visualizer : visualizers) visualizer.draw(Ts, t);
     }
 }

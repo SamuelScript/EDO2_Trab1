@@ -41,7 +41,26 @@ public class SimulationPanel extends JPanel {
     }
 
     public void tick() {
-        //System.out.println("tick tack " + simulation.getTitle());
+        if(mode == 1) {
+            if(status == STATES.RUNNING) lblStatus.setText(String.format("Computando (%.2f s / %.2f s)", t, data.time_max));
+            else lblStatus.setText(status.label);
+            if(task.isDone() && status != STATES.FINISHED) {
+                status = STATES.FINISHED;
+                stop.setEnabled(false);
+                frame.setVisible(true);
+            }
+        }
+        else if(status == STATES.RUNNING) {
+            if(task.isDone()) {
+                t_next += 0.05;
+                if(data.time_max < t_next) {
+                    status = STATES.FINISHED;
+                    t_next = data.time_max;
+                    lblStatus.setText(status.label);
+                } else lblStatus.setText(String.format("Rodando (%.2f s / %.2f s)", t, data.time_max));
+                task = threadPool.submit(this::compute);
+            }
+        }
     }
 
     private boolean compute() {
@@ -80,6 +99,7 @@ public class SimulationPanel extends JPanel {
 
         constraints.insets = new Insets(10, 20, 10, 10);
         constraints.gridx = 2;
+        constraints.anchor = GridBagConstraints.EAST;
         add(playpause,constraints);
 
         constraints.insets = new Insets(10, 10, 10, 20);

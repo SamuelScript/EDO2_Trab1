@@ -29,10 +29,7 @@ public class MainFrame extends JFrame {
     private JComboBox<String> comboBoxDeltaX,comboBoxSimType,comboBoxTempUnit;
     private int currentCard = 1;
     private NumericData data;
-    private int simu_mode;
-    private int partition_type;
-    private int temperature_type;
-    private JTextField[] textFields = new JTextField[] { textFieldLengthX, textFieldAlpha, textFieldTMax, textFieldCLeft, textFieldCRight, textFieldTIni, textFieldDeltaX};
+    private int simu_mode, partition_type, temperature_type;
     private final String[] textNames = new String[] { "Comprimento do Domínio" , "Condutividade Térmica", "Tempo de Simulação", "Temperatura no Contorno Esquerdo", "Temperatura no Contorno Direito", "Temperatura inicial da barra", "Delta X/Numero de partições"};
     private final boolean[] selected_methods = new boolean[METHODS.values().length];
     private final boolean[] selected_visualizers = new boolean[VISUALIZERS.values().length];
@@ -53,7 +50,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         ((JLabel)comboBoxDeltaX.getRenderer()).setHorizontalAlignment(JLabel.RIGHT);
-        panelSimList.setLayout(new GridLayout(0, 1, 0, 10));
+        panelSimList.setLayout(new GridBagLayout());//new GridLayout(0, 1, 0, 10);
 
         // PAGINA 2 (SELECAO DOS METODOS) !------!
         Object[][] methods = new Object[METHODS.values().length][2];
@@ -134,6 +131,7 @@ public class MainFrame extends JFrame {
                 lblTempUnit3.setText((String)comboBoxTempUnit.getSelectedItem());
             }
         });
+
         methodSelectionModel.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 ((CardLayout)panelMethodInfo.getLayout()).show(panelMethodInfo, String.valueOf(tableMethods.getSelectedRow()));
@@ -204,7 +202,7 @@ public class MainFrame extends JFrame {
                             }
                         }
 
-                        data = new NumericData(temp[0],temp[1],temp[2],temp[6],temp[3],temp[4],temp[5]);
+                        data = new NumericData(temp[0],temp[1],temp[2],temp[6],temp[5],temp[3],temp[4]);
                         if(comboBoxDeltaX.getSelectedIndex() == 1) data.deltaX = data.length_x / data.deltaX;
 
                         if(comboBoxTempUnit.getSelectedIndex() == 1) { //Celsius -> Kelvin
@@ -228,6 +226,12 @@ public class MainFrame extends JFrame {
                         for(int i = 0; i < tableMethods.getRowCount(); i++) {
                             selected_methods[i] = (boolean) tableMethods.getValueAt(i, 1);
                             has_any_method |= selected_methods[i];
+                            if(selected_methods[i])
+                                if(extraDataPanels[i].validateFields()) extraDataMethods[i] = extraDataPanels[i].getExtraData();
+                                else {
+                                    lblStatus.setText(String.format("Não foi possível validar parâmetros de %s", METHODS.values()[i].method_name));
+                                    return;
+                                }
                         }
                         if(!has_any_method) {
                             lblStatus.setText("Selecione ao menos um método.");
@@ -241,6 +245,12 @@ public class MainFrame extends JFrame {
                         for(int i = 0; i < tableVisualizer.getRowCount(); i++) {
                             selected_visualizers[i] = (boolean) tableVisualizer.getValueAt(i, 1);
                             has_any_visualizer |= selected_visualizers[i];
+                            if(selected_visualizers[i])
+                                if(extraViewPanels[i].validateFields()) extraDataVisualizers[i] = extraViewPanels[i].getExtraData();
+                                else {
+                                    lblStatus.setText(String.format("Não foi possível validar parâmetros de %s", VISUALIZERS.values()[i].visualizer_name));
+                                    return;
+                                }
                         }
                         if(!has_any_visualizer) {
                             lblStatus.setText("Selecione ao menos um visualizador.");
