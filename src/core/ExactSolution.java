@@ -6,6 +6,7 @@ import static java.lang.Math.sin;
 public class ExactSolution extends NumericMethod{
     ExactSolution(NumericData data) {
         super(data);
+        deltaT = 0.1;
     }
     @Override
     public void step(double t) {

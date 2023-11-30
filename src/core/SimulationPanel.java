@@ -26,14 +26,16 @@ public class SimulationPanel extends JPanel {
     private final SimulationFrame frame;
     private final int mode;
     private final NumericData data;
-    private double t;
+    private double t = 0;
     private double t_next;
+    private double deltaT;
     private Future<Boolean> task;
 
     public void doPlaypauseClick() { playpause.doClick(); }
 
     public void doStopClick() {
         stop.doClick();
+        frame.dispose();
     }
 
     public boolean isRunning() {
@@ -48,15 +50,19 @@ public class SimulationPanel extends JPanel {
                 status = STATES.FINISHED;
                 stop.setEnabled(false);
                 frame.setVisible(true);
+                frame.draw_all(simulation.getTs(), t, true);
             }
         }
         else if(status == STATES.RUNNING) {
             if(task.isDone()) {
+                frame.draw_all(simulation.getTs(), t, true);
                 t_next += 0.05;
-                if(data.time_max < t_next) {
+                if(data.time_max <= t_next && Math.abs(data.time_max - t) < 1.0e-5) {
                     status = STATES.FINISHED;
                     t_next = data.time_max;
                     lblStatus.setText(status.label);
+                    playpause.setEnabled(false);
+                    stop.setEnabled(false);
                 } else lblStatus.setText(String.format("Rodando (%.2f s / %.2f s)", t, data.time_max));
                 task = threadPool.submit(this::compute);
             }
@@ -64,10 +70,10 @@ public class SimulationPanel extends JPanel {
     }
 
     private boolean compute() {
-        double deltaT = simulation.getDeltaT();
-        for(; t <= t_next; t += deltaT) {
+        while(t <= t_next) {
             simulation.step(t);
-            frame.draw_all(simulation.getTs(), t);
+            t += deltaT;
+            frame.draw_all(simulation.getTs(), t, false);
         }
         return true;
     }
@@ -91,6 +97,7 @@ public class SimulationPanel extends JPanel {
         constraints.ipadx = 70;
         constraints.anchor = GridBagConstraints.CENTER;
         lblStatus = new JLabel(STATES.READY.label);
+        lblStatus.setHorizontalAlignment(JLabel.RIGHT);
         add(lblStatus, constraints);
 
         playpause = new JButton("Iniciar");
@@ -107,9 +114,10 @@ public class SimulationPanel extends JPanel {
         add(stop,constraints);
 
         simulation = MethodFactory.createMethod(data, extraMethodData, method);
-        frame = new SimulationFrame(data, method.method_name, visualizer, extraVisualizerData);
+        deltaT = simulation.getDeltaT();
+        frame = new SimulationFrame(data, method.method_name, visualizer, extraVisualizerData, mode);
 
-        frame.draw_all(simulation.getTs(), 0);
+        frame.draw_all(simulation.getTs(), 0, true);
 
         if(mode == 1) {
             status = STATES.RUNNING;

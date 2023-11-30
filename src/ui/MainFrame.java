@@ -26,11 +26,11 @@ public class MainFrame extends JFrame {
     private JTable tableMethods,tableVisualizer;
     private JTextField textFieldLengthX, textFieldAlpha, textFieldTMax, textFieldCLeft, textFieldCRight, textFieldTIni, textFieldDeltaX;
     private final JTextField[] textFields = new JTextField[] { textFieldLengthX, textFieldAlpha, textFieldTMax, textFieldCLeft, textFieldCRight, textFieldTIni, textFieldDeltaX};
+    private final String[] textNames = new String[] { "Comprimento do Domínio" , "Condutividade Térmica", "Tempo de Simulação", "Temperatura no Contorno Esquerdo", "Temperatura no Contorno Direito", "Temperatura inicial da barra", "Delta X/Numero de partições"};
     private JComboBox<String> comboBoxDeltaX,comboBoxSimType,comboBoxTempUnit;
     private int currentCard = 1;
     private NumericData data;
     private int simu_mode, partition_type, temperature_type;
-    private final String[] textNames = new String[] { "Comprimento do Domínio" , "Condutividade Térmica", "Tempo de Simulação", "Temperatura no Contorno Esquerdo", "Temperatura no Contorno Direito", "Temperatura inicial da barra", "Delta X/Numero de partições"};
     private final boolean[] selected_methods = new boolean[METHODS.values().length];
     private final boolean[] selected_visualizers = new boolean[VISUALIZERS.values().length];
     private SimulationPanel[] simulations;
@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
     private final double[][] extraDataMethods = new double[METHODS.values().length][];
     private final double[][] extraDataVisualizers = new double[VISUALIZERS.values().length][];
     private int simulations_running = 0;
-    private ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    private final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     public MainFrame() {
         super("Metal Pipe DELUXE");
@@ -50,6 +50,8 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         ((JLabel)comboBoxDeltaX.getRenderer()).setHorizontalAlignment(JLabel.RIGHT);
+        ((JLabel)comboBoxSimType.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        ((JLabel)comboBoxTempUnit.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
         panelSimList.setLayout(new GridBagLayout());//new GridLayout(0, 1, 0, 10);
 
         // PAGINA 2 (SELECAO DOS METODOS) !------!
@@ -262,10 +264,15 @@ public class MainFrame extends JFrame {
 
                         int methodCount = 0;
                         int visualizerCount = 0;
+
                         METHODS[] methods = new METHODS[METHODS.values().length]; //Candidato a refatoração
-                        VISUALIZERS[] visualizers = new VISUALIZERS[VISUALIZERS.values().length];
+
                         for(int i = 0; i < selected_methods.length; i++) if(selected_methods[i]) methods[methodCount++] = METHODS.values()[i];
-                        for(int i = 0; i < selected_visualizers.length; i++) if(selected_visualizers[i]) visualizers[visualizerCount++] = VISUALIZERS.values()[i];
+                        for (boolean selectedVisualizer : selected_visualizers) if(selectedVisualizer) visualizerCount++;
+
+                        VISUALIZERS[] visualizers = new VISUALIZERS[visualizerCount];
+                        for(int i = 0, v = 0; i < selected_visualizers.length; i++) if(selected_visualizers[i]) visualizers[v++] = VISUALIZERS.values()[i];
+
                         simulations = new SimulationPanel[methodCount];
                         GridBagConstraints constraints = new GridBagConstraints();
                         constraints.gridx = 0;
@@ -275,7 +282,7 @@ public class MainFrame extends JFrame {
                         int panelLength = scrollPaneSimLIst.getSize().width;
                         for(int i = 0; i < methodCount; i++) {
                             constraints.gridy = i;
-                            simulations[i] = new SimulationPanel(simu_mode,threadPool,data, methods[i], visualizers, extraDataMethods[i], extraDataVisualizers);
+                            simulations[i] = new SimulationPanel(simu_mode, threadPool, data, methods[i], visualizers, extraDataMethods[methods[i].ordinal()], extraDataVisualizers);
                             simulations[i].setPreferredSize(new Dimension(panelLength-15,40));
                             panelSimList.add(simulations[i], constraints);
                         }

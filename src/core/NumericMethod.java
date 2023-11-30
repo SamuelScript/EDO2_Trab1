@@ -41,11 +41,4 @@ abstract class NumericMethod {
     public double getDeltaT() {
         return deltaT;
     }
-
-    /*public void run() {
-        for(double t = deltaT; t <= time_max; t += deltaT) {
-            step(t);
-
-        }
-    }*/
 }

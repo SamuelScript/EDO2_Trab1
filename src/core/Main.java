@@ -1,20 +1,17 @@
-package Main;
+package core;
 
-import core.MethodFactory;
-import core.NumericData;
-import core.VisualizerFactory;
 import ui.MainFrame;
 
 import javax.swing.*;
 
 public class Main {
-    //static double length_x = 50;
-    //static double a = 1;
-    //static double t_max = 70;
-    //static double ti = 20;
-    //static double tce = 0;
-    //static double tcd = 0;
-    //static final int s_partition = 1000;
+    //length_x = 50;
+    //a = 1;
+    //t_max = 70;
+    //ti = 20;
+    //tce = 0;
+    //tcd = 0;
+    //int s_partition = 1000;
 
     public static void main(String[] args) {
         try {
@@ -22,7 +19,6 @@ public class Main {
             (new MainFrame()).setVisible(true);
         } catch (Exception e) {
             System.out.println("Exceção em Main: " + e.getLocalizedMessage());
-            e.printStackTrace();
         }
     }
 }
