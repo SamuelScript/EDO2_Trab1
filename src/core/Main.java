@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
             (new MainFrame()).setVisible(true);
         } catch (Exception e) {
             System.out.println("Exceção em Main: " + e.getLocalizedMessage());
