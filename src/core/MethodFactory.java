@@ -4,23 +4,26 @@ public class MethodFactory {
     public enum METHODS{
         EXACT("Solução Analítica", new String[] {}),
         UTCS("Upwind no Tempo e Centrada no Espaço", new String[] {}),
+        FTCS("Avançada no Tempo e Centrada no Espaço", new String[] {}),
         TDMA_IMPLICIT("Método de Thomas Implícito", new String[] { "Hesse" }),
         TDMA_EXPLICIT("Método de Thomas Explícito", new String[] { "Hesse" }),
         TDMA_CRANK_NICOLSON("Método de Crank e Nicolson", new String[] { "Hesse" }),
         TDMA_CUSTOM("Método de Thomas Customizado", new String[] { "Beta", "Hesse" });
-        public String method_name;
-        public String[] method_extra_data;
+        public final String method_name;
+        public final String[] method_extra_data;
         METHODS(String method_name, String[] method_extra_data) {
             this.method_name = method_name;
             this.method_extra_data = method_extra_data;
         }
     }
-    public static NumericMethod createMethod(NumericData data, double[] extraData, METHODS method) {
+    static NumericMethod createMethod(NumericData data, double[] extraData, METHODS method) {
         switch(method) {
             case EXACT:
                 return new ExactSolution(data);
             case UTCS:
                 return new UTCS(data);
+            case FTCS:
+                return new FTCS(data);
             case TDMA_IMPLICIT:
                 return new TDMA(data, 0.0, extraData[0]);
             case TDMA_EXPLICIT:
