@@ -4,7 +4,8 @@ public class VisualizerFactory {
     public enum VISUALIZERS{
         TEXT("Saída de Texto"),
         TIME("Curvas de Tempo no Domínio"),
-        SPACE("Curvas de Espaço no Tempo");
+        SPACE("Curvas de Espaço no Tempo"),
+        G3D("Superficie");
         public final String visualizer_name;
         VISUALIZERS(String visualizer_name){
             this.visualizer_name = visualizer_name;
