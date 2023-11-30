@@ -19,6 +19,8 @@ public class VisualizerFactory {
                 return new GChartTimeVisualizer(data, extraData, visualizer.visualizer_name, animMode);
             case SPACE:
                 return new GChartSpaceVisualizer(data, extraData, visualizer.visualizer_name, animMode);
+            case G3D:
+                return new GChart3DVisualizer(data, visualizer.visualizer_name, animMode);
         }
         return new TextVisualizer(data, extraData, visualizer.visualizer_name, animMode);
     }

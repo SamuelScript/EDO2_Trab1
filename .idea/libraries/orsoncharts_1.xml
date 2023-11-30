@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="orsoncharts-1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Development/Java Libraries/orsoncharts-1.6/lib" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Development/Java Libraries/orsoncharts-1.6/javadoc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$USER_HOME$/Development/Java Libraries/orsoncharts-1.6/src/main/java" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Development/Java Libraries/orsoncharts-1.6/lib" recursive="false" />
+  </library>
+</component>
