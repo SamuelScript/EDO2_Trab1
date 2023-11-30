@@ -3,9 +3,15 @@ package core;
 import javax.swing.*;
 
 public class TextVisualizer extends Visualizer {
-    private JScrollPane view;
-    private JTextArea text;
-    TextVisualizer(NumericData data) {
+    private final JScrollPane view;
+    private final JTextArea text;
+    int drawMode;
+    int curve = 1;
+    boolean animMode;
+    double t_next;
+    double[] drawCurves;
+    double drawEvery;
+    TextVisualizer(NumericData data, double[] extraData, String name, int animMode) {
         super(data);
         this.animMode = animMode == 0;
         drawMode = extraData==null?-1:(int) extraData[0];
